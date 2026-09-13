@@ -1,8 +1,9 @@
 uvicorn
 pydantic
-SQLalchemy
+sqlalchemy
 fastapi
 Emailstr
 psycopg
 argon2-cffi
 pyjwt
+python-dotenv
