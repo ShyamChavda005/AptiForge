@@ -4,6 +4,7 @@ pydantic
 email-validator
 sqlalchemy
 psycopg
+psycopg2
 argon2-cffi
 PyJWT
 python-dotenv
