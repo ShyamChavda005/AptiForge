@@ -1,9 +1,8 @@
-uvicorn
+fastapi
+uvicorn[standard]
 pydantic
 sqlalchemy
-fastapi
-Emailstr
 psycopg
 argon2-cffi
-pyjwt
+PyJWT
 python-dotenv
