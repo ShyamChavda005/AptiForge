@@ -138,7 +138,7 @@ function AdminViewUser() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
 
-                            <thead className="border-b border-slate-200 bg-slate-50">
+                            <thead className="text-center border-b border-slate-200 bg-slate-50">
                                 <tr>
                                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-slate-500">
                                         #
@@ -160,13 +160,17 @@ function AdminViewUser() {
                                         Status
                                     </th>
 
-                                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-slate-500 text-right">
+                                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                        Register_Time
+                                    </th>
+
+                                    <th className="px-6 py-4 text-xs font-semibold uppercase tracking-wide text-slate-500 text-center">
                                         Actions
                                     </th>
                                 </tr>
                             </thead>
 
-                            <tbody className="divide-y divide-slate-100">
+                            <tbody className="divide-y text-center divide-slate-100">
                                 {loading ? (
                                     <tr>
                                         <td colSpan="6" className="px-6 py-12 text-center text-sm text-slate-500">
@@ -203,18 +207,24 @@ function AdminViewUser() {
                                                 </td>
 
                                                 <td className="px-6 py-4">
-                                                    <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
-                                                        isBlocked
+                                                    <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${isBlocked
                                                             ? 'bg-rose-50 text-rose-700 border border-rose-200'
                                                             : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                                                    }`}>
+                                                        }`}>
                                                         <span className={`h-1.5 w-1.5 rounded-full ${isBlocked ? 'bg-rose-500' : 'bg-emerald-500'}`}></span>
                                                         {isBlocked ? "Blocked" : "Active"}
                                                     </span>
                                                 </td>
 
                                                 <td className="px-6 py-4 text-xs text-slate-600 capitalize">
-                                                    {u.created_at}
+                                                    {new Date(u.created_at).toLocaleString('en-US', {
+                                                        day: '2-digit',
+                                                        month: 'short',
+                                                        year: 'numeric',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        hour12: true
+                                                    })}
                                                 </td>
 
                                                 <td className="px-6 py-4 text-right">
@@ -229,17 +239,16 @@ function AdminViewUser() {
                                                         <button
                                                             onClick={() => handleStatusToggle(u)}
                                                             disabled={updatingId === u.id}
-                                                            className={`text-xs font-semibold cursor-pointer rounded-lg px-3.5 py-1.5 text-white transition disabled:opacity-50 shadow-2xs ${
-                                                                isBlocked
+                                                            className={`text-xs font-semibold cursor-pointer rounded-lg px-3.5 py-1.5 text-white transition disabled:opacity-50 shadow-2xs ${isBlocked
                                                                     ? 'bg-emerald-600 hover:bg-emerald-700'
                                                                     : 'bg-amber-600 hover:bg-amber-700'
-                                                            }`}
+                                                                }`}
                                                         >
                                                             {updatingId === u.id
                                                                 ? "Updating..."
                                                                 : isBlocked
-                                                                ? "Activate"
-                                                                : "Block"}
+                                                                    ? "Activate"
+                                                                    : "Block"}
                                                         </button>
                                                     </div>
                                                 </td>
@@ -291,11 +300,10 @@ function AdminViewUser() {
                                 </div>
                                 <div>
                                     <span className="text-xs text-slate-400 uppercase font-bold tracking-wider">Account Status</span>
-                                    <p className={`text-sm font-bold ${
-                                        (viewUser.status || "").toLowerCase() === "blocked"
+                                    <p className={`text-sm font-bold ${(viewUser.status || "").toLowerCase() === "blocked"
                                             ? "text-rose-600"
                                             : "text-emerald-600"
-                                    }`}>
+                                        }`}>
                                         {viewUser.status || "Active"}
                                     </p>
                                 </div>
@@ -319,11 +327,10 @@ function AdminViewUser() {
                             <div className="mt-6 flex justify-between items-center pt-3 border-t border-slate-100">
                                 <button
                                     onClick={() => handleStatusToggle(viewUser)}
-                                    className={`rounded-xl px-4 py-2 text-xs font-semibold text-white cursor-pointer ${
-                                        (viewUser.status || "").toLowerCase() === "blocked"
+                                    className={`rounded-xl px-4 py-2 text-xs font-semibold text-white cursor-pointer ${(viewUser.status || "").toLowerCase() === "blocked"
                                             ? "bg-emerald-600 hover:bg-emerald-700"
                                             : "bg-amber-600 hover:bg-amber-700"
-                                    }`}
+                                        }`}
                                 >
                                     {(viewUser.status || "").toLowerCase() === "blocked" ? "Activate Account" : "Block Account"}
                                 </button>
