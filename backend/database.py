@@ -1,7 +1,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+import os
+from dotenv import load_dotenv
 
-engine = create_engine("postgresql+psycopg://postgres:root@localhost:9000/aptiforge")
+load_dotenv()
+load_dotenv(".env.local")
+
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg://postgres:root@localhost:9000/aptiforge")
+
+engine = create_engine(DATABASE_URL)
 
 def check_connection() :
     try  :

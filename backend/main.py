@@ -4,7 +4,15 @@ from routers import user, admin, qns
 from models import Base
 from database import engine
 
-Base.metadata.create_all(bind=engine)
+from dotenv import load_dotenv
+
+load_dotenv()
+load_dotenv(".env.local")
+
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print("Warning: Could not connect or create database tables on startup:", e)
 
 app = FastAPI()
 
