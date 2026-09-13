@@ -1,0 +1,8 @@
+uvicorn
+pydantic
+SQLalchemy
+fastapi
+Emailstr
+psycopg
+argon2-cffi
+pyjwt
