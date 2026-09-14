@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
 import DataTablePagination from "../../components/DataTablePagination";
+import { API_BASE_URL } from "../../config/api";
 
 function AdminViewUser() {
     const [users, setUsers] = useState([]);
@@ -19,7 +20,7 @@ function AdminViewUser() {
         try {
             setLoading(true);
             setError("");
-            const res = await axios.get("http://localhost:8000/admin/users");
+            const res = await axios.get(`${API_BASE_URL}/admin/users`);
             setUsers(res.data || []);
         } catch (err) {
             console.error("Error fetching users:", err);
@@ -44,7 +45,7 @@ function AdminViewUser() {
 
         try {
             setUpdatingId(user.id);
-            await axios.put(`http://localhost:8000/admin/users/${user.id}/status?status=${newStatus}`);
+            await axios.put(`${API_BASE_URL}/admin/users/${user.id}/status?status=${newStatus}`);
             // Update local state directly for instant feedback
             setUsers((prev) =>
                 prev.map((u) => (u.id === user.id ? { ...u, status: newStatus } : u))

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'
+import { API_BASE_URL } from '../../config/api';
 
 function ProfileMenu() {
     const [open, setOpen] = useState(false);
@@ -9,7 +10,7 @@ function ProfileMenu() {
     useEffect(() => {
         const getProfile = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/profile", {
+                const response = await axios.get(`${API_BASE_URL}/profile`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },

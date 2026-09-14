@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AdNavbar from "./AdNavbar";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export default function AdminProfile() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function AdminProfile() {
     useEffect(() => {
         const getProfile = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/admin/profile", {
+                const response = await axios.get(`${API_BASE_URL}/admin/profile`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('Adtoken')}`,
                     }
@@ -87,7 +88,7 @@ export default function AdminProfile() {
 
         try {
             setLoading(true);
-            const response = await axios.put("http://localhost:8000/admin/update-profile", payload, {
+            const response = await axios.put(`${API_BASE_URL}/admin/update-profile`, payload, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("Adtoken")}`,
                 },

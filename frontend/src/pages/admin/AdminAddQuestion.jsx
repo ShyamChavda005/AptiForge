@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
+import { API_BASE_URL } from "../../config/api";
 
 function AdminAddQuestion() {
     const [topics, setTopics] = useState([]);
@@ -26,7 +27,7 @@ function AdminAddQuestion() {
     useEffect(() => {
         const fetchTopics = async () => {
             try {
-                const res = await axios.get("http://localhost:8000/topics");
+                const res = await axios.get(`${API_BASE_URL}/topics`);
                 setTopics(res.data || []);
             } catch (err) {
                 console.error("Error loading topics:", err);
@@ -80,7 +81,7 @@ function AdminAddQuestion() {
                 difficulty: form.difficulty,
             };
 
-            await axios.post("http://localhost:8000/question/topic/add", payload);
+            await axios.post(`${API_BASE_URL}/question/topic/add`, payload);
             navigate("/admin/dashboard/questions");
         } catch (err) {
             console.error("Error adding question:", err);

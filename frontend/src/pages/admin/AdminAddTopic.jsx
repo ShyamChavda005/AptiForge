@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
+import { API_BASE_URL } from "../../config/api";
 
 function AdminAddTopic() {
     const [name, setName] = useState("");
@@ -20,7 +21,7 @@ function AdminAddTopic() {
 
         try {
             setLoading(true);
-            await axios.post("http://localhost:8000/topics/add", {
+            await axios.post(`${API_BASE_URL}/topics/add`, {
                 name: name.trim(),
             });
             navigate("/admin/dashboard/topics");

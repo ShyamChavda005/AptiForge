@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export default function Profile() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function Profile() {
     useEffect(() => {
         const getProfile = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/profile", {
+                const response = await axios.get(`${API_BASE_URL}/profile`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     }
@@ -87,7 +88,7 @@ export default function Profile() {
 
         try {
             setLoading(true);
-            const response = await axios.put("http://localhost:8000/profile", payload, {
+            const response = await axios.put(`${API_BASE_URL}/profile`, payload, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },

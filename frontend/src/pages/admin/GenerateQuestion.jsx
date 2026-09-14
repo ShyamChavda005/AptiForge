@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
+import { API_BASE_URL } from "../../config/api";
 
 function GenerateQuestion() {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ function GenerateQuestion() {
     useEffect(() => {
         const fetchTopics = async () => {
             try {
-                const res = await axios.get("http://localhost:8000/topics");
+                const res = await axios.get(`${API_BASE_URL}/topics`);
                 setTopics(res.data || []);
                 if (res.data && res.data.length > 0) {
                     setSelectedTopicId(res.data[0].id.toString());
@@ -63,7 +64,7 @@ function GenerateQuestion() {
         try {
             const token = localStorage.getItem("Adtoken");
             const res = await axios.post(
-                "http://localhost:8000/admin/generate-questions",
+                `${API_BASE_URL}/admin/generate-questions`,
                 {
                     topic_id: parseInt(selectedTopicId),
                     topic_name: topicName,
@@ -146,7 +147,7 @@ function GenerateQuestion() {
                 difficulty: q.difficulty || difficulty,
             };
 
-            await axios.post("http://localhost:8000/question/topic/add", payload);
+            await axios.post(`${API_BASE_URL}/question/topic/add`, payload);
             setSavedStatus((prev) => ({ ...prev, [index]: true }));
             setSuccessMsg(`Question #${index + 1} saved successfully!`);
         } catch (err) {
@@ -192,7 +193,7 @@ function GenerateQuestion() {
                     solution: (q.solution || "").trim(),
                     difficulty: q.difficulty || difficulty,
                 };
-                await axios.post("http://localhost:8000/question/topic/add", payload);
+                await axios.post(`${API_BASE_URL}/question/topic/add`, payload);
                 setSavedStatus((prev) => ({ ...prev, [idx]: true }));
                 savedCount++;
             } catch (err) {

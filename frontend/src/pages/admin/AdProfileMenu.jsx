@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios'
+import { API_BASE_URL } from '../../config/api';
 
 export default function AdProfilMenu() {
     const [open, setOpen] = useState(false);
@@ -10,7 +11,7 @@ export default function AdProfilMenu() {
         const loadData = async () => {
             try {
                 const token = localStorage.getItem("Adtoken");
-                const response = await axios.get("http://localhost:8000/admin/profile", {
+                const response = await axios.get(`${API_BASE_URL}/admin/profile`, {
                     headers: {
                         Authorization: token ? `Bearer ${token}` : "",
                     },

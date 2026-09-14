@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
 import DataTablePagination from "../../components/DataTablePagination";
+import { API_BASE_URL } from "../../config/api";
 
 function AdminTopics() {
     const [topics, setTopics] = useState([]);
@@ -21,7 +22,7 @@ function AdminTopics() {
         try {
             setLoading(true);
             setError("");
-            const res = await axios.get("http://localhost:8000/topics");
+            const res = await axios.get(`${API_BASE_URL}/topics`);
             const topicsData = res.data || [];
             setTopics(topicsData);
 
@@ -31,7 +32,7 @@ function AdminTopics() {
                 topicsData.map(async (t) => {
                     try {
                         const countRes = await axios.get(
-                            `http://localhost:8000/admin/total-question-topic?tid=${t.id}`
+                            `${API_BASE_URL}/admin/total-question-topic?tid=${t.id}`
                         );
                         counts[t.id] = countRes.data;
                     } catch (e) {
@@ -59,7 +60,7 @@ function AdminTopics() {
         }
 
         try {
-            await axios.delete(`http://localhost:8000/topics/delete?topic_id=${topicId}`);
+            await axios.delete(`${API_BASE_URL}/topics/delete?topic_id=${topicId}`);
             setTopics((prev) => prev.filter((t) => t.id !== topicId));
             if (paginatedTopics.length === 1 && safeCurrentPage > 1) {
                 setCurrentPage(safeCurrentPage - 1);
@@ -82,7 +83,7 @@ function AdminTopics() {
 
         try {
             setEditSubmitting(true);
-            await axios.put(`http://localhost:8000/topics/update?tid=${editingTopic.id}`, {
+            await axios.put(`${API_BASE_URL}/topics/update?tid=${editingTopic.id}`, {
                 name: editName.trim(),
             });
 

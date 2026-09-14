@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -44,7 +45,7 @@ export default function Login() {
             setLoading(true);
 
             const data = await axios.post(
-                "http://127.0.0.1:8000/login/users",
+                `${API_BASE_URL}/login/users`,
                 { email, password }
             );
 

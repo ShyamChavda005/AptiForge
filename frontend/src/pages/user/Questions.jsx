@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/api";
 
 export default function Question() {
     const location = useLocation();
@@ -62,14 +63,14 @@ export default function Question() {
             setError("");
 
             try {
-                let url = "http://localhost:8000/topics";
+                let url = `${API_BASE_URL}/topics`;
                 if (topicId) {
-                    url = `http://localhost:8000/question/topic/${topicId}`;
+                    url = `${API_BASE_URL}/question/topic/${topicId}`;
                 } else {
-                    const topicsRes = await axios.get("http://localhost:8000/topics");
+                    const topicsRes = await axios.get(`${API_BASE_URL}/topics`);
                     if (topicsRes.data && topicsRes.data.length > 0) {
                         const firstId = topicsRes.data[0].id;
-                        url = `http://localhost:8000/question/topic/${firstId}`;
+                        url = `${API_BASE_URL}/question/topic/${firstId}`;
                     }
                 }
 

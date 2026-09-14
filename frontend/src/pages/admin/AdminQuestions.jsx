@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
 import DataTablePagination from "../../components/DataTablePagination";
+import { API_BASE_URL } from "../../config/api";
 
 function AdminQuestions() {
     const location = useLocation();
@@ -53,8 +54,8 @@ function AdminQuestions() {
             setLoading(true);
             setError("");
             const [qRes, tRes] = await Promise.all([
-                axios.get("http://localhost:8000/questions"),
-                axios.get("http://localhost:8000/topics"),
+                axios.get(`${API_BASE_URL}/questions`),
+                axios.get(`${API_BASE_URL}/topics`),
             ]);
             setQuestions(qRes.data || []);
             setTopics(tRes.data || []);
@@ -88,7 +89,7 @@ function AdminQuestions() {
         try {
             setAiStep("generating");
             setAiError("");
-            const res = await axios.post("http://localhost:8000/admin/generate-questions", {
+            const res = await axios.post(`${API_BASE_URL}/admin/generate-questions`, {
                 topic_id: parseInt(aiForm.topic_id),
                 topic_name: topicName,
                 difficulty: aiForm.difficulty,
@@ -106,7 +107,7 @@ function AdminQuestions() {
     const handleSaveSingleGenerated = async (q, index) => {
         try {
             setSavingIndex(index);
-            await axios.post("http://localhost:8000/question/topic/add", {
+            await axios.post(`${API_BASE_URL}/question/topic/add`, {
                 topic_id: parseInt(q.topic_id),
                 question: q.question,
                 option_a: q.option_a,
@@ -133,7 +134,7 @@ function AdminQuestions() {
         try {
             setSavingAll(true);
             for (const q of generatedQuestions) {
-                await axios.post("http://localhost:8000/question/topic/add", {
+                await axios.post(`${API_BASE_URL}/question/topic/add`, {
                     topic_id: parseInt(q.topic_id),
                     question: q.question,
                     option_a: q.option_a,
@@ -223,7 +224,7 @@ function AdminQuestions() {
         if (!window.confirm("Are you sure you want to delete this question?")) return;
 
         try {
-            await axios.delete(`http://localhost:8000/question/topic/delete?qid=${qid}`);
+            await axios.delete(`${API_BASE_URL}/question/topic/delete?qid=${qid}`);
             setQuestions((prev) => prev.filter((q) => q.id !== qid));
             if (paginatedQuestions.length === 1 && safeCurrentPage > 1) {
                 setCurrentPage(safeCurrentPage - 1);
@@ -274,7 +275,7 @@ function AdminQuestions() {
             };
 
             await axios.put(
-                `http://localhost:8000/question/topic/update?qid=${editingQuestion.id}`,
+                `${API_BASE_URL}/question/topic/update?qid=${editingQuestion.id}`,
                 payload
             );
 

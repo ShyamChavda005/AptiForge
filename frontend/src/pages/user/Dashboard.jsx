@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar'
 import axios from 'axios';
+import { API_BASE_URL } from '../../config/api';
 
 function Dashboard() {
     const redirect = useNavigate();
@@ -21,20 +22,20 @@ function Dashboard() {
             setLoading(true);
             setError("");
             try {
-                const profileRes = await axios.get("http://localhost:8000/profile", {
+                const profileRes = await axios.get(`${API_BASE_URL}/profile`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
                 setName(profileRes.data.name);
 
-                const topicsRes = await axios.get("http://localhost:8000/topics");
+                const topicsRes = await axios.get(`${API_BASE_URL}/topics`);
                 const rawTopics = Array.isArray(topicsRes.data) ? topicsRes.data : [];
 
                 const topicsWithCounts = await Promise.all(
                     rawTopics.map(async (t) => {
                         try {
-                            const countRes = await axios.get(`http://localhost:8000/admin/total-question-topic?tid=${t.id}`);
+                            const countRes = await axios.get(`${API_BASE_URL}/admin/total-question-topic?tid=${t.id}`);
                             return {
                                 ...t,
                                 questionCount: typeof countRes.data === "number" ? countRes.data : 0

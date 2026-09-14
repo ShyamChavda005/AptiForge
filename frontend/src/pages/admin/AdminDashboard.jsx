@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AdNavbar from "./AdNavbar";
+import { API_BASE_URL } from "../../config/api";
 
 function AdminDashboard() {
     const [stats, setStats] = useState({
@@ -21,9 +22,9 @@ function AdminDashboard() {
                 };
 
                 const [usersRes, topicsRes, questionsRes] = await Promise.all([
-                    axios.get("http://localhost:8000/admin/total-user", config),
-                    axios.get("http://localhost:8000/admin/total-topic", config),
-                    axios.get("http://localhost:8000/admin/total-questions", config),
+                    axios.get(`${API_BASE_URL}/admin/total-user`, config),
+                    axios.get(`${API_BASE_URL}/admin/total-topic`, config),
+                    axios.get(`${API_BASE_URL}/admin/total-questions`, config),
                 ]);
 
                 const totalTopics = typeof topicsRes.data === "number" ? topicsRes.data : 0;

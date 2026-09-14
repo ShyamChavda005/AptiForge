@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode"
+import { API_BASE_URL } from "../config/api";
 
 function OTP() {
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -42,7 +43,7 @@ function OTP() {
     const verifyOTP = async () => {
         try {
             const response = await axios.post(
-                "http://localhost:8000/login/verify-otp",
+                `${API_BASE_URL}/login/verify-otp`,
                 {
                     email,
                     otp: otp.join(""),
