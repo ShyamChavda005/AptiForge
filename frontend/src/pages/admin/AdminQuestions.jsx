@@ -331,7 +331,7 @@ function AdminQuestions() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3">
-                        <Link to="/admin/dashboard/generate-question"
+                        <Link to="/admin/dashboard/add-questions/generate-question"
                             className="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700 shadow-sm cursor-pointer">
                             Generate with AI
                         </Link>

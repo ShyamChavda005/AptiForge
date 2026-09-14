@@ -97,7 +97,7 @@ function AdminDashboard() {
 
                     <div className="mt-5 flex flex-wrap gap-3">
                         <Link
-                            to="/admin/dashboard/generate-question"
+                            to="/admin/dashboard/add-questions/generate-question"
                             className="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 shadow-sm cursor-pointer"
                         >
                             Generate Questions with AI
