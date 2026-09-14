@@ -138,7 +138,7 @@ export default function Profile() {
                         </div>
 
                         <h1 className="mt-6 text-3xl font-bold tracking-tight text-slate-950">
-                            {user.name || "User"}
+                            {user.name || ""}
                         </h1>
 
                         {user.role && (

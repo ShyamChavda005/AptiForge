@@ -84,7 +84,7 @@ export default function Question() {
                     correctAnswer: q.correct_answer,
                     explanation: q.explanation || "",
                     solution: q.solution || "",
-                    difficulty: q.difficulty || "Medium",
+                    difficulty: q.difficulty || "",
                 }));
 
                 setQuestions(formatted);

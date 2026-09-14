@@ -80,7 +80,7 @@ function Dashboard() {
                     {/* Welcome */}
                     <div className="text-center">
                         <h1 className="text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-                            Welcome, <span className="text-indigo-600">{name || "User"}</span>
+                            Welcome, <span className="text-indigo-600">{name || ""}</span>
                         </h1>
 
                         <p className="mt-3 text-slate-500">

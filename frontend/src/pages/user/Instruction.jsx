@@ -11,7 +11,7 @@ export default function Instruction() {
     const topicId = typeof topic === 'object' ? topic?.id : (typeof topic === 'number' ? topic : null);
     const topicTitle = typeof topic === 'object' ? (topic?.name || "Practice Test") : (topic || "Practice Test");
 
-    const [difficulty, setDifficulty] = useState("Medium");
+    const [difficulty, setDifficulty] = useState("");
     const [questionCount, setQuestionCount] = useState(
         typeof topic === 'object' && topic?.questionCount !== undefined ? topic.questionCount : 0
     );
@@ -29,7 +29,7 @@ export default function Instruction() {
                 if (questions.length > 0) {
                     const diffCounts = {};
                     questions.forEach((q) => {
-                        const rawDiff = (q.difficulty || "Medium").trim();
+                        const rawDiff = (q.difficulty || "").trim();
                         const capitalized = rawDiff.charAt(0).toUpperCase() + rawDiff.slice(1).toLowerCase();
                         diffCounts[capitalized] = (diffCounts[capitalized] || 0) + 1;
                     });

@@ -36,7 +36,7 @@ def send_otp_email(to_email: str, otp: str):
 
         Your AptiForge login OTP is: {otp}
 
-        This OTP will expire in 2 minutes.
+        This OTP will expire in 5 minutes.
 
         If you did not request this OTP, please ignore this email.
 

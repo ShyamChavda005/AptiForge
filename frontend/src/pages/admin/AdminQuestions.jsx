@@ -117,7 +117,7 @@ function AdminQuestions() {
                 correct_answer: q.correct_answer,
                 explanation: q.explanation || "",
                 solution: q.solution || "",
-                difficulty: q.difficulty || "Medium",
+                difficulty: q.difficulty || "",
             });
             setGeneratedQuestions((prev) => prev.filter((_, idx) => idx !== index));
             fetchData();
@@ -144,7 +144,7 @@ function AdminQuestions() {
                     correct_answer: q.correct_answer,
                     explanation: q.explanation || "",
                     solution: q.solution || "",
-                    difficulty: q.difficulty || "Medium",
+                    difficulty: q.difficulty || "",
                 });
             }
             setGeneratedQuestions([]);
@@ -248,7 +248,7 @@ function AdminQuestions() {
             correct_answer: q.correct_answer || "",
             explanation: q.explanation || "",
             solution: q.solution || "",
-            difficulty: q.difficulty || "Medium",
+            difficulty: q.difficulty || "",
         });
     };
 
