@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import user, admin, qns
+from routers import user, admin, qns, health
 from models import Base
 from database import engine
 
@@ -35,3 +35,5 @@ app.include_router(user.router)
 app.include_router(qns.router)
 
 app.include_router(admin.router)
+
+app.include_router(health.router)
