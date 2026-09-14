@@ -1,5 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import Login from './pages/Login'
@@ -66,6 +67,7 @@ function App() {
           <Route path="/admin/dashboard/profile" element={<AdminProfile />} />
         </Routes>
       </BrowserRouter>
+      <Analytics />
     </>
   )
 }
