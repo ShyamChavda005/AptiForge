@@ -5,7 +5,7 @@ export default function Hero() {
         <section className="bg-white">
             <div className="mx-auto max-w-7xl px-6 py-12 lg:flex lg:items-center lg:gap-16">
 
-                <div className="max-w-2xl">
+                <div className="max-w-1xl">
                     <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-sm font-medium text-indigo-700">
                         <span className="h-2 w-2 rounded-full bg-indigo-600"></span>
                         Practice Makes Perfect.
@@ -13,7 +13,7 @@ export default function Hero() {
 
                     <h1 className="text-4xl font-bold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
                         Prepare for your next
-                        <span className="text-indigo-600"> aptitude test.</span>
+                        <span className="text-indigo-600"> Quantitative aptitude test.</span>
                     </h1>
 
                     <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
