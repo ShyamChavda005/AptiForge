@@ -49,8 +49,7 @@ function CommingSoon() {
                 <div className="mx-auto mt-14 grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
                     {features.map((feature) => (
-                        <div
-                            key={feature.title}
+                        <div key={feature.title}
                             className="group rounded-2xl border border-slate-400 bg-white p-6 transition duration-200 hover:-translate-y-1 hover:border-indigo-200 hover:bg-indigo-100 hover:shadow-md">
 
                             {/* Icon */}
