@@ -24,6 +24,12 @@ export default function Question() {
     const [showExitConfirmModal, setShowExitConfirmModal] = useState(false);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate("/login");
+            return;
+        }
+
         const handleBeforeUnload = (e) => {
             if (!isSubmitted && questions.length > 0) {
                 e.preventDefault();

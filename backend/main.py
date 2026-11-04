@@ -3,6 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers import user, admin, qns, health
 from models import Base
 from database import engine
+from slowapi.errors import RateLimitExceeded
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.middleware import SlowAPIMiddleware
+from core.Limiter import limiter
 
 from dotenv import load_dotenv
 
@@ -15,6 +19,33 @@ except Exception as e:
     print("Warning: Could not connect or create database tables on startup:", e)
 
 app = FastAPI()
+
+@app.middleware("http")
+async def extract_login_email(request, call_next):
+
+    if request.url.path == "/login/users" and request.method == "POST":
+        try:
+            body = await request.json()
+
+            request.state.login_email = (
+                body.get("email", "").lower().strip()
+            )
+
+        except Exception:
+            request.state.login_email = None
+
+    response = await call_next(request)
+    return response
+
+app.state.limiter = limiter
+
+app.add_exception_handler(
+    RateLimitExceeded,
+    _rate_limit_exceeded_handler
+)
+
+app.add_middleware(SlowAPIMiddleware)
+
 
 app.add_middleware(
     CORSMiddleware,

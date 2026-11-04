@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
 import DataTablePagination from "../../components/DataTablePagination";
@@ -11,6 +11,13 @@ function AdminQuestions() {
     const [topics, setTopics] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const redirect = useNavigate();
+
+    const token = localStorage.getItem('Adtoken');
+    if (!token) {
+        redirect("/login");
+        return;
+    }
 
     // Filtering & Pagination state
     const [searchQuery, setSearchQuery] = useState("");
@@ -505,8 +512,8 @@ function AdminQuestions() {
 
                                             <td className="px-6 py-4">
                                                 <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${q.difficulty?.toLowerCase() === 'easy' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
-                                                        q.difficulty?.toLowerCase() === 'hard' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
-                                                            'bg-amber-50 text-amber-700 border border-amber-200'
+                                                    q.difficulty?.toLowerCase() === 'hard' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
+                                                        'bg-amber-50 text-amber-700 border border-amber-200'
                                                     }`}>
                                                     {q.difficulty}
                                                 </span>
@@ -579,8 +586,8 @@ function AdminQuestions() {
                                     Topic: <strong className="text-slate-900">{viewingQuestion.topic}</strong>
                                 </span>
                                 <span className={`rounded-full px-3 py-1 text-xs font-semibold ${viewingQuestion.difficulty?.toLowerCase() === 'easy' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
-                                        viewingQuestion.difficulty?.toLowerCase() === 'hard' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
-                                            'bg-amber-50 text-amber-700 border border-amber-200'
+                                    viewingQuestion.difficulty?.toLowerCase() === 'hard' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
+                                        'bg-amber-50 text-amber-700 border border-amber-200'
                                     }`}>
                                     Difficulty: <strong>{viewingQuestion.difficulty}</strong>
                                 </span>
@@ -609,8 +616,8 @@ function AdminQuestions() {
                                             <div
                                                 key={opt.key}
                                                 className={`flex items-start gap-3 rounded-xl p-3.5 border transition ${isCorrect
-                                                        ? "bg-emerald-50/80 border-emerald-300 text-emerald-950 font-medium ring-1 ring-emerald-200"
-                                                        : "bg-white border-slate-200 text-slate-700"
+                                                    ? "bg-emerald-50/80 border-emerald-300 text-emerald-950 font-medium ring-1 ring-emerald-200"
+                                                    : "bg-white border-slate-200 text-slate-700"
                                                     }`}
                                             >
                                                 <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${isCorrect ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-600"
@@ -989,8 +996,8 @@ function AdminQuestions() {
 
                                                         <div className="flex items-center gap-2">
                                                             <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${q.difficulty?.toLowerCase() === 'easy' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
-                                                                    q.difficulty?.toLowerCase() === 'hard' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
-                                                                        'bg-amber-50 text-amber-700 border border-amber-200'
+                                                                q.difficulty?.toLowerCase() === 'hard' ? 'bg-rose-50 text-rose-700 border border-rose-200' :
+                                                                    'bg-amber-50 text-amber-700 border border-amber-200'
                                                                 }`}>
                                                                 {q.difficulty}
                                                             </span>

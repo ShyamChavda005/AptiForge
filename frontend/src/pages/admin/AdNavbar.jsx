@@ -1,7 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AdProfileMenu from './AdProfileMenu'
 
 export default function AdNavbar() {
+    const redirect = useNavigate();
+    const token = localStorage.getItem('Adtoken');
+    if (!token) {
+        redirect("/login");
+        return;
+    }
     return (
         <>
             <div className="border-b border-slate-200 bg-white">

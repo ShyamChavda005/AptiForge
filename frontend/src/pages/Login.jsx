@@ -48,7 +48,9 @@ export default function Login() {
                 `${API_BASE_URL}/login/users`,
                 { email, password }
             );
-
+            
+            console.log(data.data)
+            
             if (data.data["require_otp"]) {
                 //  User Role
                 if (data.data["message"] === "OTP sent successfully") {
@@ -64,12 +66,16 @@ export default function Login() {
                 navigate("/admin/dashboard")
             }
         } catch (err) {
-            if (err.response?.status === 401) {
+            if (err.response?.status == 429) {
+                showError("Too many Login Attempts. Please try again after a minute.")
+            } else if (err.response?.status === 401) {
                 showError("Invalid email or password.");
             } else if (err.response?.status === 422) {
                 showError("Please enter valid login information.");
             } else if (err.response?.status == 403) {
                 showError("Email Blocked by Administrator !");
+            } else if (err.response?.status == 400) {
+                showError("Unable to send OTP. Please try again.");
             } else if (err.request) {
                 showError("Unable to connect to the server.");
             } else {

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AdNavbar from "./AdNavbar";
 import { API_BASE_URL } from "../../config/api";
 
 function AdminDashboard() {
+    const redirect = useNavigate();
     const [stats, setStats] = useState({
         users: 0,
         questions: 0,
@@ -13,6 +14,12 @@ function AdminDashboard() {
     });
 
     useEffect(() => {
+        const token = localStorage.getItem('Adtoken');
+        if (!token) {
+            redirect("/login");
+            return;
+        }
+
         const getDashboardStats = async () => {
             try {
                 const config = {

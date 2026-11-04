@@ -17,6 +17,12 @@ export default function Instruction() {
     );
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            redirect("/login");
+            return;
+        }
+
         if (!topicId) return;
 
         const fetchTopicDetails = async () => {

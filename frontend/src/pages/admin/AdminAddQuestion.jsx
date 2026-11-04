@@ -23,8 +23,15 @@ function AdminAddQuestion() {
         solution: "",
         difficulty: "Medium",
     });
+    const redirect = useNavigate();
 
     useEffect(() => {
+        const token = localStorage.getItem('Adtoken');
+        if (!token) {
+            redirect("/login");
+            return;
+        }
+
         const fetchTopics = async () => {
             try {
                 const res = await axios.get(`${API_BASE_URL}/topics`);
@@ -159,7 +166,7 @@ function AdminAddQuestion() {
                     {/* Question */}
                     <div className="mt-6">
                         <FormField label="Question">
-                            <textarea name="question" value={form.question} onChange={handleChange} rows="4" placeholder="Enter the question..." className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 resize-none" required/>
+                            <textarea name="question" value={form.question} onChange={handleChange} rows="4" placeholder="Enter the question..." className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 resize-none" required />
                         </FormField>
                     </div>
 
@@ -171,13 +178,13 @@ function AdminAddQuestion() {
 
                         <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
 
-                            <input name="option_a" value={form.option_a} onChange={handleChange} placeholder="Option A" className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" required/>
+                            <input name="option_a" value={form.option_a} onChange={handleChange} placeholder="Option A" className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" required />
 
-                            <input name="option_b" value={form.option_b} onChange={handleChange} placeholder="Option B" className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" required/>
+                            <input name="option_b" value={form.option_b} onChange={handleChange} placeholder="Option B" className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" required />
 
-                            <input name="option_c" value={form.option_c} onChange={handleChange} placeholder="Option C" className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" required/>
+                            <input name="option_c" value={form.option_c} onChange={handleChange} placeholder="Option C" className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" required />
 
-                            <input name="option_d" value={form.option_d} onChange={handleChange} placeholder="Option D" className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" required/>
+                            <input name="option_d" value={form.option_d} onChange={handleChange} placeholder="Option D" className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" required />
 
                         </div>
                     </div>
@@ -198,14 +205,14 @@ function AdminAddQuestion() {
                     {/* Explanation */}
                     <div className="mt-6">
                         <FormField label="Explanation">
-                            <textarea name="explanation" value={form.explanation} onChange={handleChange} rows="3" placeholder="Enter explanation for the answer..." className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 resize-none"/>
+                            <textarea name="explanation" value={form.explanation} onChange={handleChange} rows="3" placeholder="Enter explanation for the answer..." className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 resize-none" />
                         </FormField>
                     </div>
 
                     {/* Solution */}
                     <div className="mt-6">
                         <FormField label="Step-by-Step Solution">
-                            <textarea name="solution" value={form.solution} onChange={handleChange} rows="3" placeholder="Enter step-by-step solution..." className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 resize-none"/>
+                            <textarea name="solution" value={form.solution} onChange={handleChange} rows="3" placeholder="Enter step-by-step solution..." className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 resize-none" />
                         </FormField>
                     </div>
 

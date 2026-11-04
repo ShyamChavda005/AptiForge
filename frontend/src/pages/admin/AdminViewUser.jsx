@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
 import DataTablePagination from "../../components/DataTablePagination";
@@ -13,6 +13,7 @@ function AdminViewUser() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
 
+    const redirect = useNavigate();
     const [viewUser, setViewUser] = useState(null);
     const [updatingId, setUpdatingId] = useState(null);
 
@@ -31,6 +32,11 @@ function AdminViewUser() {
     };
 
     useEffect(() => {
+        const token = localStorage.getItem('Adtoken');
+        if (!token) {
+            redirect("/login");
+            return;
+        }
         fetchUsers();
     }, []);
 
@@ -209,8 +215,8 @@ function AdminViewUser() {
 
                                                 <td className="px-6 py-4">
                                                     <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${isBlocked
-                                                            ? 'bg-rose-50 text-rose-700 border border-rose-200'
-                                                            : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                                        ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                                                        : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                                                         }`}>
                                                         <span className={`h-1.5 w-1.5 rounded-full ${isBlocked ? 'bg-rose-500' : 'bg-emerald-500'}`}></span>
                                                         {isBlocked ? "Blocked" : "Active"}
@@ -241,8 +247,8 @@ function AdminViewUser() {
                                                             onClick={() => handleStatusToggle(u)}
                                                             disabled={updatingId === u.id}
                                                             className={`text-xs font-semibold cursor-pointer rounded-lg px-3.5 py-1.5 text-white transition disabled:opacity-50 shadow-2xs ${isBlocked
-                                                                    ? 'bg-emerald-600 hover:bg-emerald-700'
-                                                                    : 'bg-amber-600 hover:bg-amber-700'
+                                                                ? 'bg-emerald-600 hover:bg-emerald-700'
+                                                                : 'bg-amber-600 hover:bg-amber-700'
                                                                 }`}
                                                         >
                                                             {updatingId === u.id
@@ -302,8 +308,8 @@ function AdminViewUser() {
                                 <div>
                                     <span className="text-xs text-slate-400 uppercase font-bold tracking-wider">Account Status</span>
                                     <p className={`text-sm font-bold ${(viewUser.status || "").toLowerCase() === "blocked"
-                                            ? "text-rose-600"
-                                            : "text-emerald-600"
+                                        ? "text-rose-600"
+                                        : "text-emerald-600"
                                         }`}>
                                         {viewUser.status || "Active"}
                                     </p>
@@ -329,8 +335,8 @@ function AdminViewUser() {
                                 <button
                                     onClick={() => handleStatusToggle(viewUser)}
                                     className={`rounded-xl px-4 py-2 text-xs font-semibold text-white cursor-pointer ${(viewUser.status || "").toLowerCase() === "blocked"
-                                            ? "bg-emerald-600 hover:bg-emerald-700"
-                                            : "bg-amber-600 hover:bg-amber-700"
+                                        ? "bg-emerald-600 hover:bg-emerald-700"
+                                        : "bg-amber-600 hover:bg-amber-700"
                                         }`}
                                 >
                                     {(viewUser.status || "").toLowerCase() === "blocked" ? "Activate Account" : "Block Account"}

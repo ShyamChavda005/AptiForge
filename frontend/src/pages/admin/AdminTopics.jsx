@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdNavbar from "./AdNavbar";
 import DataTablePagination from "../../components/DataTablePagination";
@@ -13,6 +13,13 @@ function AdminTopics() {
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
+    const redirect = useNavigate();
+
+    const token = localStorage.getItem('Adtoken');
+    if (!token) {
+        redirect("/login");
+        return;
+    }
 
     const [editingTopic, setEditingTopic] = useState(null);
     const [editName, setEditName] = useState("");

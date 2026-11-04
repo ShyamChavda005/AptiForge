@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 import { API_BASE_URL } from '../../config/api';
@@ -6,8 +6,15 @@ import { API_BASE_URL } from '../../config/api';
 export default function AdProfilMenu() {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState("");
+    const redirect = useNavigate();
 
     useEffect(() => {
+        const token = localStorage.getItem('Adtoken');
+        if (!token) {
+            redirect("/login");
+            return;
+        }
+        
         const loadData = async () => {
             try {
                 const token = localStorage.getItem("Adtoken");
@@ -38,7 +45,7 @@ export default function AdProfilMenu() {
                     onClick={() => setOpen(!open)}
                     className="cursor-pointer flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2 transition hover:border-indigo-200 hover:bg-indigo-50">
                     <div className=" flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-600">
-                       {initial}
+                        {initial}
                     </div>
 
                     <span className="hidden text-sm font-semibold text-slate-800 sm:block">

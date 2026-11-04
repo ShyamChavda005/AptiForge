@@ -10,6 +10,12 @@ function AdminAddTopic() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    const token = localStorage.getItem('Adtoken');
+    if (!token) {
+        navigate("/login");
+        return;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");

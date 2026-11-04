@@ -27,6 +27,12 @@ function GenerateQuestion() {
 
     // Fetch topics on mount
     useEffect(() => {
+        const token = localStorage.getItem('Adtoken');
+        if (!token) {
+            navigate("/login");
+            return;
+        }
+
         const fetchTopics = async () => {
             try {
                 const res = await axios.get(`${API_BASE_URL}/topics`);
@@ -300,11 +306,10 @@ function GenerateQuestion() {
                                 <div className="grid grid-cols-3 gap-3">
                                     {["Easy", "Medium", "Hard"].map((d) => (
                                         <button key={d} type="button" onClick={() => setDifficulty(d)}
-                                            className={`rounded-lg py-2.5 text-sm font-semibold border transition cursor-pointer ${
-                                                difficulty === d
+                                            className={`rounded-lg py-2.5 text-sm font-semibold border transition cursor-pointer ${difficulty === d
                                                     ? "border-indigo-600 bg-indigo-50 text-indigo-700 shadow-sm"
                                                     : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
-                                            }`}>
+                                                }`}>
                                             {d}
                                         </button>
                                     ))}
@@ -319,11 +324,10 @@ function GenerateQuestion() {
                                 <div className="grid grid-cols-4 gap-3">
                                     {[1, 3, 5, 10].map((num) => (
                                         <button key={num} type="button" onClick={() => setCount(num)}
-                                            className={`rounded-lg py-2.5 text-sm font-semibold border transition cursor-pointer ${
-                                                count === num
+                                            className={`rounded-lg py-2.5 text-sm font-semibold border transition cursor-pointer ${count === num
                                                     ? "border-indigo-600 bg-indigo-50 text-indigo-700 shadow-sm"
                                                     : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
-                                            }`}>
+                                                }`}>
                                             {num} {num === 1 ? "Question" : "Questions"}
                                         </button>
                                     ))}
@@ -390,9 +394,8 @@ function GenerateQuestion() {
 
                             return (
                                 <div key={idx}
-                                    className={`rounded-xl border transition-all duration-200 bg-white p-6 shadow-sm ${
-                                        isSaved ? "border-emerald-300 ring-1 ring-emerald-200 bg-emerald-50/10" : "border-slate-200"
-                                    }`}>
+                                    className={`rounded-xl border transition-all duration-200 bg-white p-6 shadow-sm ${isSaved ? "border-emerald-300 ring-1 ring-emerald-200 bg-emerald-50/10" : "border-slate-200"
+                                        }`}>
                                     {/* Question Header Badge & Save status */}
                                     <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
                                         <div className="flex items-center gap-3">
@@ -443,11 +446,10 @@ function GenerateQuestion() {
                                                         value={q[`option_${opt}`]}
                                                         onChange={(e) => handleItemChange(idx, `option_${opt}`, e.target.value)}
                                                         disabled={isSaved}
-                                                        className={`w-full rounded-lg border p-2.5 text-sm outline-none disabled:bg-slate-50 ${
-                                                            q.correct_answer === opt.toUpperCase()
+                                                        className={`w-full rounded-lg border p-2.5 text-sm outline-none disabled:bg-slate-50 ${q.correct_answer === opt.toUpperCase()
                                                                 ? "border-emerald-400 bg-emerald-50/50 font-medium text-emerald-950"
                                                                 : "border-slate-200 text-slate-800"
-                                                        }`}
+                                                            }`}
                                                     />
                                                 </div>
                                             ))}

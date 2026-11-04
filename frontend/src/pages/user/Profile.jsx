@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_BASE_URL } from "../../config/api";
 
 export default function Profile() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [changePassword, setChangePassword] = useState(false);
+    const redirect = useNavigate();
 
     const [user, setUser] = useState({
         name: "",
@@ -24,6 +26,12 @@ export default function Profile() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            redirect("/login");
+            return;
+        }
+
         const getProfile = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/profile`, {

@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { API_BASE_URL } from '../../config/api';
 
 function ProfileMenu() {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState("");
+    const redirect = useNavigate();
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            redirect("/login");
+            return;
+        }
+
         const getProfile = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/profile`, {

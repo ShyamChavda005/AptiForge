@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import AdNavbar from "./AdNavbar";
 import axios from "axios";
 import { API_BASE_URL } from "../../config/api";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminProfile() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [changePassword, setChangePassword] = useState(false);
+    const redirect = useNavigate();
 
     const [user, setUser] = useState({
         name: "",
@@ -24,6 +26,12 @@ export default function AdminProfile() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        const token = localStorage.getItem('Adtoken');
+        if (!token) {
+            redirect("/login");
+            return;
+        }
+
         const getProfile = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/admin/profile`, {
